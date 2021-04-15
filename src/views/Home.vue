@@ -1,20 +1,23 @@
 <template>
-  <div class="mx-8 rounded-sm font-sans">
-    <div v-for="m in musics" :key="m.id" >
-      <base-row hbgColor="hover:bg-blue-900" hTextColor="hover:text-yellow-400" >
-        <!-- <div class="flex flex-row items-center mx-8 rounded-sm border-b-2"> -->
-          <div class="m-2 flex flex-row w-3/4 ">
-            {{ m.fullname }}
-          </div>
-          <div class="flex flex-row-reverse w-1/4 m-1">
-            <button @click="addNewSurvey(m)">
-              <img src="../assets/add_circle_black_24dp.svg" alt="" />
-            </button>
-          </div>
-        <!-- </div> -->
-      </base-row>
-    </div>
+  <div class="mx-8 rounded-sm font-sans bg-red-200 p-2">
+    <base-row
+      hbgColor="hover:bg-blue-900"
+      hTextColor="hover:text-yellow-400"
+      v-for="m in musics"
+      :key="m.id"
+    >
+      <div class="m-2 flex flex-row w-3/4">
+        {{ m.fullname }}
+      </div>
+      <div class="flex flex-row-reverse w-1/4 m-2">
+        <base-button  @click="addNewSurvey(m)">
+          <span class="material-icons text-green-400 animate-pulse  hover:text-green-300 "> add_circle_outline </span>
+          <!-- <img src="../assets/add_circle_black_24dp.svg" alt="" /> -->
+        </base-button>
+      </div>
+    </base-row>
   </div>
+
 
   <!-- <div v-for="m in musics" :key="m.id">
     <div class="flex flex-row">
@@ -25,7 +28,7 @@
     </div>
   </div> -->
 
-  <div v-for="ml in musicsLike" :key="ml.id">
+  <!-- <div v-for="ml in musicsLike" :key="ml.id">
     <div class="flex flex-row">
       <span v-if="!ml.isEdit">{{ ml.fullname }}</span>
       <input
@@ -45,23 +48,22 @@
       <button v-if="!ml.isEdit" @click="removeSongMyplaylist(ml.id)">
         <img src="../assets/clear_black_24dp.svg" alt="" />
       </button>
-      <!-- <button @click="removeSongMyplaylist(ml)">
-        <img src="./assets/remove_circle_black_24dp.svg" alt="" />
-      </button> -->
+    
     </div>
-  </div>
-  <!-- <base-audio></base-audio> -->
+  </div> -->
+  
   <play-list></play-list>
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+
+
+  
 </template>
 
 <script>
-
 import PlayList from "../components/PlayList.vue";
 export default {
   name: "Home",
   components: {
-    "play-list": PlayList
+    "play-list": PlayList,
     //"local-registration": LocalRegistration,
     // "base-audio": BaseAudio
     // HelloWorld
@@ -86,114 +88,6 @@ export default {
       const res = await fetch("http://localhost:5000/musicsLike");
       const data = await res.json();
       return data;
-    },
-    async removeSongMyplaylist(ml) {
-      const res = await fetch(`${this.urlPlaylist}/${ml}`, {
-        method: "DELETE",
-      });
-      res.status === 200
-        ? (this.musicsLike = this.musicsLike.filter((song) => song.id !== ml))
-        : alert("Error to delete ");
-    },
-    async showTagInput(ml) {
-      try {
-        const res = await fetch(`${this.urlPlaylist}/${ml.id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            nameref: ml.nameref,
-            fullname: ml.fullname,
-            isEdit: true,
-            id: ml.id,
-          }),
-        });
-        const data = await res.json();
-        this.musicsLike = this.musicsLike.map((song) =>
-          song.id === ml.id
-            ? {
-                ...ml,
-                nameref: data.nameref,
-                fullname: data.fullname,
-                isEdit: data.isEdit,
-              }
-            : song
-        );
-        // location.reload();
-        console.log(this.musicsLike[0]);
-      } catch (error) {
-        console.log(`Could not edit! ${error}`);
-      }
-    },
-    async cancelNameInMyplaylist(ml) {
-      try {
-        const res = await fetch(`${this.urlPlaylist}/${ml.id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            nameref: ml.nameref,
-            fullname: ml.fullname,
-            isEdit: false,
-            id: ml.id,
-          }),
-        });
-        const data = await res.json();
-        this.musicsLike = this.musicsLike.map((song) =>
-          song.id === ml.id
-            ? {
-                ...song,
-                nameref: data.nameref,
-                fullname: data.fullname,
-                isEdit: data.isEdit,
-              }
-            : song
-        );
-        // location.reload();
-        console.log(this.musicsLike[0]);
-      } catch (error) {
-        console.log(`Could not edit! ${error}`);
-      }
-    },
-    async editNameInMyplaylist(ml) {
-      if (this.editName != "") {
-        try {
-          const res = await fetch(`${this.urlPlaylist}/${ml.id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              nameref: ml.nameref,
-              fullname: this.editName,
-              isEdit: false,
-              id: ml.id,
-            }),
-          });
-          const data = await res.json();
-          this.musicsLike = this.musicsLike.map((survey) =>
-            survey.id === ml.id
-              ? {
-                  ...survey,
-                  nameref: data.nameref,
-                  fullname: data.fullname,
-                  isEdit: data.isEdit,
-                }
-              : survey
-          );
-          this.editName = "";
-          // this.isEdit = false
-          // this.editId = ''
-          // this.enteredName = ''
-          // this.rating = null
-        } catch (error) {
-          console.log(`Could not edit! ${error}`);
-        }
-      } else {
-        alert("pls put your name is u want or cancel");
-      }
     },
     async addNewSurvey(song) {
       var boolean = true;
@@ -231,7 +125,7 @@ export default {
   async created() {
     this.musics = await this.fetchMusics();
     this.musicsLike = await this.fetchMusicsLike();
-    console.log(this.musics[0].nameref);
+    
   },
 };
 </script>
