@@ -1,5 +1,40 @@
 <template>
-  <div v-for="ml in musicsLike" :key="ml.id">
+  <div class="mx-8 rounded-sm font-sans bg-red-200 p-2">
+    <div v-if="!isHave">u not yet add song to yourplaylist</div>
+    <div v-if="isHave">
+      <base-row
+        hbgColor="hover:bg-blue-900"
+        hTextColor="hover:text-yellow-400"
+        v-for="ml in musicsLike"
+        :key="ml.id"
+      >
+        <div class="m-2 flex flex-row w-3/4">
+          <span v-if="!ml.isEdit">{{ ml.fullname }}</span>
+          <input
+            v-if="ml.isEdit"
+            type="text"
+            v-model="editName"
+            class="bg-black text-indigo-50 w-2/5"
+          />
+        </div>
+        <div class="flex flex-row-reverse w-1/4 m-2">
+          <base-button v-if="ml.isEdit" @click="cancelNameInMyplaylist(ml)">
+            Cancel
+          </base-button>
+          <base-button v-if="ml.isEdit" @click="editNameInMyplaylist(ml)">
+            Change
+          </base-button>
+          <base-button v-if="!ml.isEdit" @click="removeSongMyplaylist(ml.id)">
+            <span class="material-icons"> clear </span>
+          </base-button>
+          <base-button v-if="!ml.isEdit" @click="showTagInput(ml)">
+            <span class="material-icons"> edit </span>
+          </base-button>
+        </div>
+      </base-row>
+    </div>
+  </div>
+  <!-- <div v-for="ml in musicsLike" :key="ml.id">
     <div class="flex flex-row">
       <span v-if="!ml.isEdit">{{ ml.fullname }}</span>
       <input
@@ -14,13 +49,13 @@
       </button>
 
       <button v-if="!ml.isEdit" @click="showTagInput(ml)">
-        <img src="../assets/edit_black_24dp.svg" alt="" />
+        <span class="material-icons"> edit </span>
       </button>
       <button v-if="!ml.isEdit" @click="removeSongMyplaylist(ml.id)">
-        <img src="../assets/clear_black_24dp.svg" alt="" />
+        <span class="material-icons"> clear </span>
       </button>
     </div>
-  </div>
+  </div> -->
 </template>
 <script>
 export default {
@@ -31,7 +66,7 @@ export default {
       urlPlaylist: "http://localhost:5000/musicsLike",
       musics: [],
       musicsLike: [],
-
+      isHave: false,
       editName: "",
     };
   },
@@ -53,6 +88,9 @@ export default {
       res.status === 200
         ? (this.musicsLike = this.musicsLike.filter((song) => song.id !== ml))
         : alert("Error to delete ");
+      if (this.musicsLike[0] == undefined) {
+        this.isHave = false;
+      }
     },
     async showTagInput(ml) {
       try {
@@ -158,6 +196,11 @@ export default {
   async created() {
     this.musics = await this.fetchMusics();
     this.musicsLike = await this.fetchMusicsLike();
+    if (this.musicsLike[0] != undefined) {
+      this.isHave = true;
+    }
+    console.log(this.musicsLike[0]);
+    console.log(this.isHave);
   },
 };
 </script>

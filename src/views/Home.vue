@@ -10,15 +10,17 @@
         {{ m.fullname }}
       </div>
       <div class="flex flex-row-reverse w-1/4 m-2">
-        <base-button  @click="addNewSurvey(m)">
-          <span class="material-icons text-green-400 animate-pulse  hover:text-green-300 "> add_circle_outline </span>
+        <base-button @click="addNewSurvey(m)">
+          <span
+            class="material-icons text-green-400 animate-pulse hover:text-green-300"
+          >
+            add_circle_outline
+          </span>
           <!-- <img src="../assets/add_circle_black_24dp.svg" alt="" /> -->
         </base-button>
       </div>
     </base-row>
   </div>
-
-
   <!-- <div v-for="m in musics" :key="m.id">
     <div class="flex flex-row">
       <span>{{ m.fullname }}</span>
@@ -51,11 +53,8 @@
     
     </div>
   </div> -->
-  
+
   <play-list></play-list>
-
-
-  
 </template>
 
 <script>
@@ -125,7 +124,6 @@ export default {
   async created() {
     this.musics = await this.fetchMusics();
     this.musicsLike = await this.fetchMusicsLike();
-    
   },
 };
 </script>
