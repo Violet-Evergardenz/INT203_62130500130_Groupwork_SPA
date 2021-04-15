@@ -1,23 +1,29 @@
 <template>
-  
-  <base-row>
-    <div v-for="m in musics" :key="m.id">
-      <div class="flex flex-row">
-        <span>{{ m.fullname }}</span>
-        <button @click="addNewSurvey(m)">
-          <img src="../assets/add_circle_black_24dp.svg" alt="" />
-        </button>
-      </div>
+  <div class="mx-8 rounded-sm font-sans">
+    <div v-for="m in musics" :key="m.id" >
+      <base-row hbgColor="hover:bg-blue-900" hTextColor="hover:text-yellow-400" >
+        <!-- <div class="flex flex-row items-center mx-8 rounded-sm border-b-2"> -->
+          <div class="m-2 flex flex-row w-3/4 ">
+            {{ m.fullname }}
+          </div>
+          <div class="flex flex-row-reverse w-1/4 m-1">
+            <button @click="addNewSurvey(m)">
+              <img src="../assets/add_circle_black_24dp.svg" alt="" />
+            </button>
+          </div>
+        <!-- </div> -->
+      </base-row>
     </div>
-  </base-row>
-  <div v-for="m in musics" :key="m.id">
+  </div>
+
+  <!-- <div v-for="m in musics" :key="m.id">
     <div class="flex flex-row">
       <span>{{ m.fullname }}</span>
       <button @click="addNewSurvey(m)">
         <img src="../assets/add_circle_black_24dp.svg" alt="" />
       </button>
     </div>
-  </div>
+  </div> -->
 
   <div v-for="ml in musicsLike" :key="ml.id">
     <div class="flex flex-row">
@@ -45,16 +51,17 @@
     </div>
   </div>
   <!-- <base-audio></base-audio> -->
+  <play-list></play-list>
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-// import BaseAudio from "./components/BaseAudio.vue";
-//import LocalRegistration from "./components/LocalRegistration.vue";
+
+import PlayList from "../components/PlayList.vue";
 export default {
   name: "Home",
   components: {
+    "play-list": PlayList
     //"local-registration": LocalRegistration,
     // "base-audio": BaseAudio
     // HelloWorld
