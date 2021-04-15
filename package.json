@@ -1,11 +1,12 @@
 {
-  "name": "int203_62130500130_groupwork_spa",
+  "name": "Box-Mosiz",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "backend": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
