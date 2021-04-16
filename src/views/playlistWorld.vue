@@ -1,8 +1,8 @@
 <template>
-<div>asd</div>
+<div></div>
 </template>
 <script>
 export default {
-  name: "About"
+  name: "playlistWorld"
   }
   </script>

@@ -1,7 +1,7 @@
 {
   "musics": [
     {
-      "nameref": "../assets/Musics/Words-of-my-heart.mp3",
+      "nameref": "Words-of-my-heart",
       "fullname": "[LYRIC] Kim-YeonJi Words of my heart Im Not a Robot OST Part 3",
       "id": 1
     },
@@ -11,12 +11,6 @@
       "id": 2
     }
   ],
-  "musicsLike": [
-    {
-      "nameref": "../assets/Musics/Words-of-my-heart.mp3",
-      "fullname": "[LYRIC] Kim-YeonJi Words of my heart Im Not a Robot OST Part 3",
-      "isEdit": false,
-      "id": 1
-    }
-  ]
+  "musicsLike": [],
+  "playlistWorld":[]
 }

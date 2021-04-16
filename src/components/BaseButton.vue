@@ -1,5 +1,5 @@
 <template>
-    <button  :class="[buttonCol, textCol,hbgCol, hTextCol]" ><slot></slot></button>
+    <button :class="[buttonCol, textCol,hbgCol, hTextCol]" ><slot></slot></button>
 </template>
 <script>
 export default {
