@@ -11,6 +11,19 @@
       "id": 2
     }
   ],
-  "musicsLike": [],
-  "playlistWorld":[]
+  "musicsLike": [
+    {
+      "nameref": "Words-of-my-heart",
+      "fullname": "[LYRIC] Kim-YeonJi Words of my heart Im Not a Robot OST Part 3",
+      "isedit": false,
+      "id": 1
+    },
+    {
+      "nameref": "some",
+      "fullname": "[MV] BOL4 Some",
+      "isedit": false,
+      "id": 2
+    }
+  ],
+  "playlistWorld": []
 }

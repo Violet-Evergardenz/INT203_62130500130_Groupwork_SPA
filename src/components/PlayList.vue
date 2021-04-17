@@ -11,8 +11,8 @@
           {{ m.fullname }}
         </div>
         <div class="flex flex-row-reverse w-1/4 m-2">
-          <base-button  >
-            <slot v-on:click="addMusic(m)"></slot>
+          <base-button v-on:click="addMusic(m)">
+            <slot ></slot>
             
           </base-button>
         </div>
