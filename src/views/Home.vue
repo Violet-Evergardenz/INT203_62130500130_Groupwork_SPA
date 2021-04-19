@@ -1,6 +1,4 @@
 <template>
- 
-
   <play-list :musics="musics" @add-music="addMusic">
     <span
       class="material-icons text-green-400 animate-pulse hover:text-green-300"
@@ -8,10 +6,10 @@
       add_circle_outline
     </span>
   </play-list>
-
 </template>
 
 <script>
+// import BaseAudio from '../components/BaseAudio.vue';
 import PlayList from "../components/PlayList.vue";
 export default {
   name: "Home",
@@ -24,7 +22,7 @@ export default {
       urlPlaylist: "http://localhost:5000/musicsLike",
       musics: [],
       musicsLike: [],
-      name:"",
+      name: "",
       editName: "",
     };
   },
@@ -75,7 +73,6 @@ export default {
   async created() {
     this.musics = await this.fetchMusics();
     this.musicsLike = await this.fetchMusicsLike();
-   
   },
 };
 </script>

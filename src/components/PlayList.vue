@@ -12,8 +12,7 @@
         </div>
         <div class="flex flex-row-reverse w-1/4 m-2">
           <base-button v-on:click="addMusic(m)">
-            <slot ></slot>
-            
+            <slot></slot>
           </base-button>
         </div>
       </base-row>
@@ -33,7 +32,7 @@ export default {
   },
   methods: {
     addMusic(m) {
-      console.log(m)
+      console.log(m);
       this.$emit("add-music", m);
     },
   },
