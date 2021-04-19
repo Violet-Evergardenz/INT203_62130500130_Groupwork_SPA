@@ -19,11 +19,14 @@
   <div class="m-4 mx-40">
     <div v-for="music in playlistWorld" :key="music.id">
       <div class="flex flex-row justify-center">
-        <a :href="music.url" target="_blank" class="m-2 flex flex-row w-3/4 truncate">{{
-          music.fullname
-        }}</a>
+        <a
+          :href="music.url"
+          target="_blank"
+          class="m-2 flex flex-row w-3/4 truncate"
+          >{{ music.fullname }}</a
+        >
         <div class="flex flex-row-reverse w-1/4 m-2">
-          <base-button v-on:click="addMusic(m)">
+          <base-button v-on:click="removeSongMyplaylist(music)">
             <span class="material-icons"> remove </span>
           </base-button>
         </div>
@@ -63,32 +66,29 @@ export default {
       // }
     },
     async addMusic() {
-      // var boolean = true;
-      // if (this.musicsLike != []) {
-      //   for (var key of this.musicsLike) {
-      //     if (key.id == song.id) {
-      //       boolean = false;
-      //     }
-      //   }
-      // }
       console.log(this.inputname);
       console.log(this.inputlink);
-      try {
-        const res = await fetch(this.urlAllmusic, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            fullname: this.inputname,
-            url: this.inputlink,
-          }),
-        });
-        const data = await res.json();
-        this.playlistWorld = [...this.playlistWorld, data];
-      } catch (error) {
-        console.log(`Could not save! ${error}`);
+      if(this.inputname != "" && this.inputlink != "") {
+        try {
+          const res = await fetch(this.urlAllmusic, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              fullname: this.inputname,
+              url: this.inputlink,
+            }),
+          });
+          const data = await res.json();
+          this.playlistWorld = [...this.playlistWorld, data];
+        } catch (error) {
+          console.log(`Could not save! ${error}`);
+        }
+      } else {
+        alert("pls putlink or name in iuput");
       }
+
       this.inputname = "";
       this.inputlink = "";
     },
